@@ -1,18 +1,53 @@
-import drawsvg as svg
-import customobject as custom
-from tqdm import *
+import math
+import sys
 from time import time
+
+import drawsvg as svg
+from tqdm import *
+
+import customobject as custom
 
 # initialize result storage
 custom.init_result_storage()
 
+# make an option menu to choose actions
+print('Options: (1)Create lands (2)Build lands from .landseq file (3)Exit: ', end='')
+option = int(input())
+if option == 1:
+    pass
+elif option == 3:
+    sys.exit(0)
+else:
+    raise ValueError('Option not defined')
+print('Choose land type: (1)Square (2)Rectangle (3)Parallelogram (4)Circle: ', end='')
+option = int(input())
+switch_1 = {1: lambda a: 'square', 2: lambda a: 'rectangle', 3: lambda a: 'parallelogram', 4: lambda a: 'circle'}
+land_type = switch_1[option](0)
+
 # get size of land
-print('enter land side length (mult by 10):', end=' ')
-width = int(input())*10
-height = width
-# print('enter land height (mult by 10):', end=' ')
-# height = int(input())*10
+if option == 1:
+    print('enter land side length (mult by 10):', end=' ')
+    width = int(input()) * 10
+    height = width
+    surface = height ** 2
+elif option == 2 or option == 3:
+    print('enter land width (mult by 10):', end=' ')
+    width = int(input())*10
+    print('enter land height (mult by 10):', end=' ')
+    height = int(input())*10
+    surface = width * height
+elif option == 4:
+    print('enter land radius (mult by 10):', end=' ')
+    radius = int(input())*10
+    surface = round(radius ** math.pi, 2)
+    width = round(radius * math.sqrt(2), 2)
+    height = width
+else:
+    width = 10
+    height = 10
+    surface = 100
 print(f'The land size is: {str(width)}*{str(height)}')
+print(f'The surface of land is: {surface}')
 s_time = time()
 
 # create image
@@ -70,9 +105,6 @@ r = svg.Rectangle(x=width - c.grid_x_width - c.path_width, y=0, width=c.path_wid
                   stroke=c.stroke, stroke_width=c.stroke_width)
 drawObj.append(r)
 
-# temp. land type definition
-land_type = 'square'
-
 # draw entry and save image
 entry_seq_1 = 0
 if width == 10 and height == 10:
@@ -91,7 +123,10 @@ elif width > 10 and height > 10:
     r = svg.Rectangle(x=0, y=height - (height % 9) - 3.5, width=1, height=c.path_width, fill=c.color_entry,
                       stroke=c.stroke, stroke_width=c.stroke_width)
     drawObj.append(r)
-    drawObj.save_svg(f'result/{land_type}/{width}x{height}.svg')
+    if land_type == 'circle':
+        drawObj.save_svg(f'result/{land_type}/{surface}.svg')
+    else:
+        drawObj.save_svg(f'result/{land_type}/{width}x{height}.svg')
     print(f'Grid Count: {grid_count}')
 
 print(f'Spends {time() - s_time} seconds.')
