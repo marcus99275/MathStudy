@@ -114,9 +114,9 @@ if width == 10 and height == 10:
     r = svg.Rectangle(x=width - c.grid_x_width - c.path_width, y=height - 1, width=c.path_width, height=1, fill=c.color_entry,
                       stroke=c.stroke, stroke_width=c.stroke_width)
     drawObj.append(r)
-    drawObj.save_svg("10x10.svg")
+    drawObj.save_svg("result/square/10x10.svg")
     print(f'Grid Counts: {grid_count}')
-elif width > 10 and height > 10:
+elif width >= 10 and height >= 10:
     r = svg.Rectangle(x=0, y=5.5, width=1, height=c.path_width, fill=c.color_entry,
                       stroke=c.stroke, stroke_width=c.stroke_width)
     drawObj.append(r)
