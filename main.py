@@ -11,17 +11,17 @@ import customobject as custom
 custom.init_result_storage()
 
 # make an option menu to choose actions
-print('Options: (1)Create lands (2)Build lands from .landseq file (3)Exit: ', end='')
+print('Options: (1)Create lands (2)Build lands from .landseq file [NOT COMPLETED] (3)Exit: ', end='')
 option = int(input())
 if option == 1:
     pass
 elif option == 3:
     sys.exit(0)
 else:
-    raise ValueError('Option not defined')
+    raise ValueError('Option not defined or not implemented')
 print('Choose land type: (1)Square (2)Rectangle (3)Parallelogram (4)Circle: ', end='')
 option = int(input())
-switch_1 = {1: lambda a: 'square', 2: lambda a: 'rectangle', 3: lambda a: 'parallelogram', 4: lambda a: 'circle'}
+switch_1 = {1: lambda a: 'square', 2: lambda a: 'rectangle', 3: lambda a: '', 4: lambda a: 'circle'}
 land_type = switch_1[option](0)
 
 # get size of land
