@@ -1,11 +1,14 @@
 import drawsvg
-import os
 
 
 class Constants(drawsvg.Rectangle):
-    def __init__(self):
+    def __init__(self, path=3.5):
         super().__init__(x=0, y=0, width=0, height=0)
 
+        if path == 1 or path == 3.5:
+            self.path_width = 3.5
+        else:
+            self.path_width = 5.5
         self.color_unused = '#ff0000'
         self.color_grid = '#ffff00'
         self.color_path = '#00ffff'
@@ -16,7 +19,7 @@ class Constants(drawsvg.Rectangle):
         self.grid_x_height = 2.5
         self.grid_y_width = 2.5
         self.grid_y_height = 5.5
-        self.path_width = 3.5
+
 
 
 class ParkingGrid(drawsvg.Rectangle):
@@ -24,11 +27,3 @@ class ParkingGrid(drawsvg.Rectangle):
         c = Constants()
         super().__init__(x=x, y=y, width=width, height=height, fill=c.color_grid,
                          stroke=c.stroke, stroke_width=c.stroke_width)
-
-
-def init_result_storage():
-    # initialize result storage
-    dirlist = ('result', 'result/square', 'result/rectangle', 'result/parallelogram', 'result/circle')
-    for i in dirlist:
-        if not os.path.exists(i):
-            os.mkdir(i)
